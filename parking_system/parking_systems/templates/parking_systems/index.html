@@ -22,7 +22,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
       <div class="container">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="{% url 'index' %}">
           <i class="fas fa-parking me-2"></i>
           <span>Estacionamento Fácil</span>
         </a>
@@ -40,15 +40,18 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.html"
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'index' %}"
                 >Início</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="car_list.html">Estacionamento</a>
+              <a class="nav-link" href="{% url 'car_list' %}">Estacionamento</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="dashboard.html">Dashboard</a>
+              <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
             </li>
           </ul>
         </div>
@@ -120,7 +123,7 @@
               <p class="card-text flex-grow-1">
                 Visualize todos os veículos atualmente no estacionamento.
               </p>
-              <a href="car_list.html" class="btn btn-primary mt-3">
+              <a href="{% url 'car_list' %}" class="btn btn-primary mt-3">
                 <i class="fas fa-list me-2"></i>Ver Veículos
               </a>
             </div>
@@ -137,7 +140,7 @@
               <p class="card-text flex-grow-1">
                 Acesse estatísticas e relatórios do sistema de estacionamento.
               </p>
-              <a href="dashboard.html" class="btn btn-primary mt-3">
+              <a href="{% url 'dashboard' %}" class="btn btn-primary mt-3">
                 <i class="fas fa-tachometer-alt me-2"></i>Ver Dashboard
               </a>
             </div>
@@ -166,7 +169,8 @@
               aria-label="Close"
             ></button>
           </div>
-          <form action="car_entry.html" method="post">
+          <form action="{% url 'car_entry' %}" method="post">
+            {% csrf_token %}
             <div class="modal-body">
               <div class="mb-3">
                 <label for="placa" class="form-label">Placa do Veículo</label>
@@ -220,7 +224,8 @@
               aria-label="Close"
             ></button>
           </div>
-          <form action="car_exit.html" method="post">
+          <form action="{% url 'car_exit' %}" method="post">
+            {% csrf_token %}
             <div class="modal-body">
               <div class="mb-3">
                 <label for="placa_saida" class="form-label"
@@ -256,6 +261,23 @@
       </div>
     </div>
 
+    <div class="container mt-3">
+      {% if messages %} {% for message in messages %}
+      <div
+        class="alert alert-{{ message.tags }} alert-dismissible fade show"
+        role="alert"
+      >
+        {{ message }}
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+
     <footer class="footer py-4 mt-5">
       <div class="container text-center">
         <p class="mb-0">
@@ -265,30 +287,5 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-      function mostrarNotificacao(mensagem, tipo) {
-        const toastEl = document.createElement("div");
-        toastEl.className = `toast position-fixed bottom-0 end-0 m-3 bg-${tipo}`;
-        toastEl.setAttribute("role", "alert");
-        toastEl.setAttribute("aria-live", "assertive");
-        toastEl.setAttribute("aria-atomic", "true");
-
-        toastEl.innerHTML = `
-            <div class="toast-header">
-                <strong class="me-auto">Notificação</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                ${mensagem}
-            </div>
-        `;
-
-        document.body.appendChild(toastEl);
-
-        const toast = new bootstrap.Toast(toastEl);
-        toast.show();
-      }
-    </script>
   </body>
 </html>

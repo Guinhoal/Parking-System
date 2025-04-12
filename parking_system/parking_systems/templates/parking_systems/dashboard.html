@@ -1,8 +1,122 @@
 <!DOCTYPE html>
-<html>
-  <head> </head>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | Sistema de Estacionamento</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    {% load static %}
+    <link
+      rel="stylesheet"
+      href="{% static 'parking_systems/css/style.css' %}"
+    />
+  </head>
   <body>
-    <h1>Testando Dahsboard</h1>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <i class="fas fa-parking me-2"></i>
+          <span>Estacionamento Fácil</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'index' %}">Início</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'car_list' %}">Estacionamento</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'car_history' %}">Histórico</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="{% url 'dashboard' %}"
+                >Dashboard</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container py-4">
+      <h2 class="mb-4 text-center">Dashboard do Estacionamento</h2>
+
+      <div class="row mb-4">
+        <div class="col-md-3">
+          <div class="card text-center mb-3">
+            <div class="card-body">
+              <i
+                class="fas fa-car-side text-primary mb-2"
+                style="font-size: 2rem"
+              ></i>
+              <h5 class="card-title">Total de Entradas</h5>
+              <p class="card-text fs-2">{{ total_entradas }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-center mb-3">
+            <div class="card-body">
+              <i
+                class="fas fa-parking text-success mb-2"
+                style="font-size: 2rem"
+              ></i>
+              <h5 class="card-title">Estacionados</h5>
+              <p class="card-text fs-2">{{ veiculos_estacionados }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-center mb-3">
+            <div class="card-body">
+              <i
+                class="fas fa-sign-out-alt text-warning mb-2"
+                style="font-size: 2rem"
+              ></i>
+              <h5 class="card-title">Saídas</h5>
+              <p class="card-text fs-2">{{ veiculos_saida }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card text-center mb-3">
+            <div class="card-body">
+              <i
+                class="fas fa-money-bill-wave text-info mb-2"
+                style="font-size: 2rem"
+              ></i>
+              <h5 class="card-title">Total Faturado</h5>
+              <p class="card-text fs-2">
+                R$ {{ total_faturado|floatformat:2 }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
