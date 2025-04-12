@@ -12,104 +12,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     />
-    <link rel="stylesheet" href="style.css" />
-    <style>
-      :root {
-        --primary-color: #3498db;
-        --secondary-color: #2c3e50;
-        --accent-color: #e74c3c;
-        --light-color: #ecf0f1;
-      }
 
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f8f9fa;
-      }
-
-      .navbar {
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      .navbar-brand {
-        font-weight: 700;
-        color: var(--primary-color);
-      }
-
-      .card {
-        transition: transform 0.3s, box-shadow 0.3s;
-        border-radius: 10px;
-        overflow: hidden;
-        border: none;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      }
-
-      .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-      }
-
-      .card-header {
-        background: linear-gradient(
-          135deg,
-          var(--primary-color),
-          var(--secondary-color)
-        );
-        color: white;
-        font-weight: 600;
-        text-align: center;
-        padding: 1.5rem 1rem;
-        border: none;
-      }
-
-      .card-icon {
-        font-size: 3rem;
-        margin-bottom: 1rem;
-      }
-
-      .btn-primary {
-        background-color: var(--primary-color);
-        border-color: var(--primary-color);
-      }
-
-      .btn-primary:hover {
-        background-color: #2980b9;
-        border-color: #2980b9;
-      }
-
-      .footer {
-        background-color: var(--secondary-color);
-        color: white;
-      }
-
-      .hero-section {
-        background: linear-gradient(
-          45deg,
-          var(--secondary-color),
-          var(--primary-color)
-        );
-        color: white;
-        padding: 3rem 0;
-        border-radius: 0 0 20px 20px;
-        margin-bottom: 3rem;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
-
-      .hero-title {
-        font-weight: 700;
-        letter-spacing: -1px;
-      }
-
-      .hero-subtitle {
-        opacity: 0.9;
-        font-weight: 300;
-      }
-
-      @media (max-width: 768px) {
-        .card {
-          margin-bottom: 2rem;
-        }
-      }
-    </style>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      href="{% static 'parking_systems/css/style.css' %}"
+    />
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
