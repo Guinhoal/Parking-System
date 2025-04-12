@@ -16,7 +16,7 @@ class Car(models.Model):
         return f"Carro {self.placa} - {'Estacionado' if not self.saida else 'Saiu'}"
     
 
-    """"Cálculo"""
+    """"Cálculo do valor do Estacionamento"""
     def calcular_valor(self):
         if not self.saida:
             return None
@@ -31,6 +31,7 @@ class Car(models.Model):
         else:
             return 5.00 + (horas - 1) * 2.00 
     
+    """"Cálculo do Tempo de permanência"""
     def tempo_permanencia(self):
         if not self.saida:
             duracao = timezone.now() - self.entrada
@@ -45,10 +46,4 @@ class Car(models.Model):
         else:
             return f"{horas}h e {minutos}min"
             
-    def status_pagamento(self):
-        if not self.saida:
-            return "Estacionado"
-        elif self.pago:
-            return "Pago"
-        else:
-            return "Pendente"
+    

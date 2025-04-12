@@ -6,6 +6,8 @@ from django.db.models import Count, Sum, Avg, F, ExpressionWrapper, fields
 from django.db.models.functions import TruncDate
 from datetime import datetime, timedelta
 
+
+"""Conta o número de carros estacionados chamada ao entrar no index"""
 def index(request):
     veiculos_estacionados = Car.objects.filter(saida__isnull=True).count()
     context = {
@@ -13,43 +15,24 @@ def index(request):
     }
     return render(request, 'parking_systems/index.html', context) 
 
+"""Calcula estastíticas Gerais, chamada ao acessar o dashboard"""
 def dashboard(request):
     total_entradas = Car.objects.count()
     veiculos_estacionados = Car.objects.filter(saida__isnull=True).count()
     veiculos_saida = Car.objects.filter(saida__isnull=False).count()
     total_faturado = Car.objects.filter(pago=True).aggregate(total=Sum('valor'))['total'] or 0
     
-    hoje = timezone.now().date()
-    sete_dias_atras = hoje - timedelta(days=6)
-    
-    entradas_por_dia = Car.objects.filter(
-        entrada__date__gte=sete_dias_atras
-    ).annotate(
-        dia=TruncDate('entrada')
-    ).values('dia').annotate(
-        total=Count('id')
-    ).order_by('dia')
-    
-    faturamento_por_dia = Car.objects.filter(
-        saida__date__gte=sete_dias_atras,
-        pago=True
-    ).annotate(
-        dia=TruncDate('saida')
-    ).values('dia').annotate(
-        total=Sum('valor')
-    ).order_by('dia')
     
     context = {
         'total_entradas': total_entradas,
         'veiculos_estacionados': veiculos_estacionados,
         'veiculos_saida': veiculos_saida,
         'total_faturado': total_faturado,
-        'entradas_por_dia': list(entradas_por_dia),
-        'faturamento_por_dia': list(faturamento_por_dia),
     }
     
     return render(request, 'parking_systems/dashboard.html', context)
 
+""""Processa a entrada de veículos e vê se é possível estacionar - Chamada por formulário"""
 def car_entry(request):
     if request.method == 'POST':
         placa = request.POST.get('placa').strip().upper()
@@ -67,6 +50,7 @@ def car_entry(request):
         
     return redirect('index')
 
+""""Processa a saída de carro e é chamada por formulário"""
 def car_exit(request):
     if request.method == 'POST':
         placa = request.POST.get('placa').strip().upper()
@@ -93,6 +77,8 @@ def car_exit(request):
     
     return redirect('index')
 
+
+""""Lista todos os veículos"""
 def car_list(request):
     carros_estacionados = Car.objects.filter(saida__isnull=True).order_by('-entrada')
     
@@ -104,6 +90,8 @@ def car_list(request):
     
     return render(request, 'parking_systems/car_list.html', context)
 
+
+""""Realiza o pagamento"""
 def car_payment(request, pk):
     carro = get_object_or_404(Car, pk=pk)
     
@@ -119,18 +107,3 @@ def car_payment(request, pk):
     
     return render(request, 'parking_systems/car_payment.html', context)
 
-def car_history(request):
-    carros_historico = Car.objects.filter(saida__isnull=False).order_by('-saida')
-    
-    total_faturado = sum(c.valor for c in carros_historico if c.pago)
-    pendente = sum(c.valor for c in carros_historico if not c.pago)
-    
-    context = {
-        'carros': carros_historico,
-        'titulo': 'Histórico de Veículos',
-        'total': carros_historico.count(),
-        'total_faturado': total_faturado,
-        'pendente': pendente
-    }
-    
-    return render(request, 'parking_systems/car_history.html', context)

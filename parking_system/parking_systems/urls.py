@@ -14,5 +14,4 @@ urlpatterns = [
     path('car-list.html', views.car_list, name='car_list'),
     path('car-list.html', views.car_list, name='car_list'),
     path('car-payment/<int:pk>/', views.car_payment, name='car_payment'),
-    path('car-history/', views.car_history, name='car_history'),
 ]
