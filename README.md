@@ -1,5 +1,5 @@
 # Sistema de Estacionamento (Parking System)
-Sistema web para gerenciamento de estacionamentos desenvolvido com Python e Django.
+Sistema web para gerenciamento de estacionamentos desenvolvido com Django.
 
 ## Descrição
 Este sistema permite o gerenciamento completo de um estacionamento, incluindo:
