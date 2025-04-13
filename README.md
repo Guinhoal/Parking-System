@@ -1,5 +1,5 @@
 # Sistema de Estacionamento (Parking System)
-Sistema web para gerenciamento de estacionamentos desenvolvido com Python e Django.
+Sistema web para gerenciamento de estacionamentos desenvolvido com Django.
 
 ## Descrição
 Este sistema permite o gerenciamento completo de um estacionamento, incluindo:
@@ -11,8 +11,8 @@ Este sistema permite o gerenciamento completo de um estacionamento, incluindo:
 
 
 ## Pré-requisitos
-- Python (4.0 ou superior)
-- Django (3.2 ou superior)
+- Python (3.8 ou superior)
+- Django (4.0 ou superior)
 - [Git](https://git-scm.com/downloads) (Opcional) para facilitar o uso do GitHub
 - Editor de texto, [Visual Studio Code](https://code.visualstudio.com/)
   
