@@ -3,8 +3,6 @@ from django.utils import timezone
 from django.contrib import messages
 from .models import Car
 from django.db.models import Count, Sum, Avg, F, ExpressionWrapper, fields
-from django.db.models.functions import TruncDate
-from datetime import datetime, timedelta
 
 
 """Conta o número de carros estacionados chamada ao entrar no index"""
