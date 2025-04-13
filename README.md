@@ -53,6 +53,12 @@ No macOS e Linux:
 source venv/bin/activate
 ```
 
+Caso precise instalar Django:
+
+```bash
+pip install django
+```
+
 Execute as migrações:
 
 ```bash
@@ -95,7 +101,7 @@ Caso queira acessar o painel de administrador do Django para conferir o modelo d
 Criar superusuário (admin):
 
 ```bash
-python manage.py runserver
+python manage.py createsuperuser
 ```
 
 Acessar o painel de administração: http://127.0.0.1:8000/admin/
